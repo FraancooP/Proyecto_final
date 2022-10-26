@@ -23,7 +23,7 @@ struct ciudad
 int main(int argc, char *argv[]){
     char op=' ',cass=' ';
     struct ciudad p;
-
+	printf("leonel agrego algo\n");
 
 
 
