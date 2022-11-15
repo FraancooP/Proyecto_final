@@ -2,8 +2,7 @@
 #include <stdlib.h>
 #include <string.h>
 #include <stdio.h>
-#include "tratamiento.h"
-
+#include "Tratamiento.h"
 using namespace std;
 struct dias
 {
@@ -27,15 +26,14 @@ struct ciudad
     char nombre_ciudad[50];
 };
 void check(FILE *fp);
-void total_temp_provincias(struct ciudad *, struct ciudad *, struct ciudad *);
 void promedio_temp_provincias(struct ciudad *, struct ciudad *, struct ciudad *);
 void promedio_temp_ciudad(struct ciudad *);
 void ciudad_mas_calidad_provincias(struct ciudad *, struct ciudad *, struct ciudad *);
 void ciudad_mas_fria_provincias(struct ciudad *,struct ciudad *, struct ciudad *);
 void dia_mas_frio_provincia(struct ciudad *, struct ciudad *, struct ciudad *);
 void dia_mas_calido_ciudad(struct ciudad *);
-void temp_pimientos();
 int main(int argc, char *argv[]){
+	Tratamiento t;
     struct ciudad *stakptr=NULL;
     struct ciudad *new_node=NULL;
 	struct ciudad *new_node2=NULL;
@@ -48,7 +46,7 @@ int main(int argc, char *argv[]){
     FILE *fp;
     fp = fopen("data_set.txt","r");
     check(fp);
-	printf("MUESTRAS: \n");
+	printf("MENU DE OPCIONES: \n");
     while (fscanf(fp,"%d %d %s %f %f %d %d %d %d", &id,&valor,&nombre,&tempe,&hum,&horas,&minutos,&dias,&meses) != EOF){
         new_node = (struct ciudad *) malloc(sizeof(ciudad));
 		new_node = (struct ciudad *) new_node;
@@ -145,7 +143,7 @@ int main(int argc, char *argv[]){
         {
         case 'a':
         case 'A':
-			total_temp_provincias(head_1,head_2,head_3);
+			t.cantMuestras();
             break;
         case 'b':
         case 'B':
@@ -173,7 +171,7 @@ int main(int argc, char *argv[]){
             break;
         case 'h':
         case 'H':
-			temp_pimientos();
+			t.promPimientos();
             break;
         default:
         printf("No se eligio ninunga opcion propuesta.\n");
@@ -191,28 +189,6 @@ void check(FILE *fp){
         printf("Imposible abrir el archivo.\n");
         exit(1);
     }
-}
-void total_temp_provincias(struct ciudad *head_1,struct ciudad *head_2 ,struct ciudad *head_3){
-	struct ciudad *temp=NULL;
-	float total_santa_fe=0,total_cba=0,total_mendoza=0;
-	temp=head_1;
-	while(temp!=NULL){
-		total_cba++;
-		temp=temp->next;
-	}
-	printf("TEMPERATURAS ALMACENADAS EN CORDOBA: %.0f\n",total_cba);
-	temp=head_2;
-	while(temp!=NULL){
-		total_santa_fe++;
-		temp=temp->next;
-	}
-	printf("TEMPERATURAS ALMACENADAS EN SANTA FE: %.0f\n",total_santa_fe);
-	temp=head_3;
-	while(temp!=NULL){
-		total_mendoza++;
-		temp=temp->next;
-	}
-	printf("TEMPERATURAS ALMACENADAS EN MENDOZA: %.0f\n",total_mendoza);
 }
 void promedio_temp_provincias(struct ciudad *head_1, struct ciudad *head_2, struct ciudad *head_3){
 	float suma=0.0f,promedio=0.0f,cant=0.0f;
@@ -484,13 +460,4 @@ void dia_mas_calido_ciudad(struct ciudad *sp){
 		}
 		temp=temp->next;
 	}
-}
-void temp_pimientos(){
-	float temp_cba=12.283633,temp_santa_fe=12.902208,temp_mendoza=12.967514;
-	printf("COMO LAS TEMPERATUAS PROMEDIO DE CADA PROVINCIA SON: \n");
-	printf("CORDOBA: %f\n",temp_cba);
-	printf("SANTA FE: %f\n",temp_santa_fe);
-	printf("MENDOZA: %f\n",temp_mendoza);
-	printf("LA TEMPERATURA PROMEDIO MAS CERCANA A 23 GRADOS, ES LA DE MENDOZA\n");
-	
 }
